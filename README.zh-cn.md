@@ -26,20 +26,28 @@ coatlearn 是 COAT（Causal Representation Assistant，因果表征助手）研�
 
 因果图可以来自 COAT、其他发现方法，或研究者明确提出的假设。若已有测量表和图，可以直接[寻找调整集与估计效应](<docs/zh-cn/causality.md>)，不必重新发现因子。概念之间的关系见[理解 COAT](<docs/zh-cn/concepts.md>)。
 
-## 先查看一个示例
+## 安装
 
-使用 Python 3.11 或更新版本，在本项目目录（包含[项目配置](<pyproject.toml>)的目录）运行：
+使用 Python 3.11 或更新版本：
 
 ```bash
-git clone https://github.com/causalcoat/COAT-Learn.git
-cd COAT-Learn
-python3 -m pip install -e .
-bash examples/mb.sh
+python -m pip install coatlearn
+python -m coatlearn --help
 ```
 
-最后一条命令只读取本地数据和配置。它显示方法、行数、使用的列与模型连接，不读取密钥、不调用模型。
+安装的是 Python 库与命令行工具，不会下载模型权重、启动服务或调用模型。虚拟环境、可选依赖与配置准备见[安装与准备分析](<docs/zh-cn/installation.md>)。
 
-示例脚本从 TOML 文件读取设置。TOML 是使用 `[task]` 等区段保存参数的文本格式，便于把一次分析的数据、模型和统计设置放在一起。
+## 先查看一个示例
+
+按[示例下载步骤](<docs/zh-cn/installation.md#3-准备示例工作目录>)获取三份配置和两份 CSV，不需要克隆仓库。在下载后的 `coat-example` 目录执行：
+
+```bash
+python -m coatlearn mb --config config/mb.toml --decision-model jev
+```
+
+命令只读取本地数据和配置，显示方法、行数、使用的列与模型连接，不读取密钥、不调用模型。
+
+任务设置保存在 TOML 文件中。TOML 是使用 `[task]` 等区段保存参数的文本格式，便于把一次分析的数据、模型和统计设置放在一起。
 
 | 示例 | 输入与目标 | 保存的设置 |
 | --- | --- | --- |
@@ -58,7 +66,7 @@ MB 与 PAG 共用一份 CSV，ADJ 使用另一份。[数据说明](<docs/zh-cn/d
 第一次尝试可以选择托管 Jev，省去本地模型部署。先按[模型连接说明](<docs/zh-cn/models.md#连接托管模型>)准备 `DEEPSEEK_API_KEY` 与 `TYPESAFE_API_KEY`，再运行：
 
 ```bash
-bash examples/mb.sh --decision-model jev --run --output-dir runs/apple-mb
+python -m coatlearn mb --config config/mb.toml --decision-model jev --run --output-dir runs/apple-mb
 ```
 
 `--decision-model jev` 将标注、审核和去重一起切换为 Jev；提出因子的模型不变。`--run` 才会调用模型。托管调用会发送所用文本，并可能产生费用。若使用默认 Kev，先按[本地部署指南](<docs/zh-cn/kev.md>)启动服务。
@@ -85,6 +93,7 @@ print(result["diagnostics"]["final_blanket"])
 
 ## 继续阅读
 
+- [安装与准备](<docs/zh-cn/installation.md>)：从 PyPI 安装、下载示例并选择任务配置。
 - [理解 COAT](<docs/zh-cn/concepts.md>)：为什么要发现变量，三个方法分别回答什么问题。
 - [第一个分析](<docs/zh-cn/quickstart.md>)：从安装到查看一份 MB 结果。
 - [标注因子](<docs/zh-cn/annotation.md>)：把已有定义用于自己的资料。

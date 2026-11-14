@@ -4,9 +4,9 @@ This is a maintainer procedure, not an instruction to upload a package now. The 
 
 ## Release identity
 
-The distribution, import namespace and CLI are `coatlearn`. PyPI had no visible project at that name when checked on 14 November 2026. This is not a reservation or a guarantee that the index will accept the name.
+The distribution, import namespace and CLI are `coatlearn`. The first release, [0.1.0](https://pypi.org/project/coatlearn/0.1.0/), is published through the approved `v0.1.0` tag. The published wheel and source archive are available on PyPI.
 
-Versions come from Git tags through setuptools-scm. Do not add a version constant or edit a version field. For an approved first release, a tag such as `v0.1.0` produces package version `0.1.0`. The release number still needs a maintainer decision. Untagged or modified checkouts generate development versions with local suffixes; those are useful locally but the publication workflow refuses to upload them.
+Versions come from Git tags through setuptools-scm. Do not add a version constant or edit a version field. The approved `v0.1.0` tag produces package version `0.1.0`. Each subsequent release number needs a maintainer decision. Untagged or modified checkouts generate development versions with local suffixes; those are useful locally but the publication workflow refuses to upload them.
 
 Keep prior releases on PyPI. An uploaded filename cannot be overwritten; publish a new Git-tagged version for a change. The user-facing documentation describes the current package, not manually copied historical implementations.
 
@@ -42,7 +42,7 @@ python3 tools/check_distribution.py build/release-candidate
 
 Use a fresh output directory for each attempt. The generated [PyPI README](<../README-PyPI.md>) has absolute links; edit [README.md](<../README.md>) and regenerate it rather than editing two descriptions. Include the generated result in the reviewed commit.
 
-The source distribution contains the two approved example CSVs, documentation and public skill. The wheel installs the Python library and CLI. It does **not** install repository-root configuration, examples or datasets into the user's working directory. Keep the source-checkout tutorial as the path for supplied examples. After a real PyPI upload, library users can install with `python3 -m pip install coatlearn` and provide their own task configuration and data. Do not advertise that install command as available before the upload succeeds.
+The source distribution contains the two approved example CSVs, documentation and public skill. The wheel installs the Python library and CLI. It does **not** install repository-root configuration, examples or datasets into the user's working directory. The default installation is `python -m pip install coatlearn`. The installation guide downloads only the example configurations, data and attribution into a working directory; users do not need a repository clone. Library users can also provide their own task configuration and data.
 
 The SPDX metadata describes the source archive's combined contents: Apache-2.0 software, CC BY 4.0 example data and MIT documentation assets. Each keeps its own scope and notices. The data license does not replace the software license.
 

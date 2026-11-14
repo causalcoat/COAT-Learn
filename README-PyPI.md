@@ -26,20 +26,28 @@ The three methods address progressively deeper analysis goals. You do not need t
 
 A causal graph can come from COAT, another discovery method or explicit researcher assumptions. With a measured table and a graph, you can [find adjustment sets and estimate effects](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/causality.md>) without discovering factors again. [Understand COAT](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/concepts.md>) explains how these ideas fit together.
 
-## Inspect an example first
+## Install
 
-Use Python 3.11 or newer. Run these commands from the project directory, which contains the [project configuration](<https://github.com/causalcoat/COAT-Learn/blob/main/pyproject.toml>):
+Use Python 3.11 or newer:
 
 ```bash
-git clone https://github.com/causalcoat/COAT-Learn.git
-cd COAT-Learn
-python3 -m pip install -e .
-bash examples/mb.sh
+python -m pip install coatlearn
+python -m coatlearn --help
 ```
 
-The final command reads local data and configuration only. It displays the method, row count, selected columns and model connections. It neither reads credentials nor calls a model.
+This installs the Python library and command-line tool. It does not download model weights, start a server or call a model. See [install and prepare an analysis](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/installation.md>) for a virtual environment, optional dependencies and configuration setup.
 
-Example scripts load settings from TOML files. TOML is a text format with sections such as `[task]`, so the data, models and statistical settings for an analysis can be kept together.
+## Inspect an example first
+
+Follow the [example download steps](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/installation.md#3-prepare-the-example-working-directory>) to obtain the three configurations and two CSV files without cloning the repository. From inside the downloaded `coat-example` directory:
+
+```bash
+python -m coatlearn mb --config config/mb.toml --decision-model jev
+```
+
+The command reads local data and configuration only. It displays the method, row count, selected columns and model connections. It neither reads credentials nor calls a model.
+
+A task stores settings in a TOML file. TOML is a text format with sections such as `[task]`, so the data, models and statistical settings for an analysis can be kept together.
 
 | Example | Input and goal | Saved settings |
 | --- | --- | --- |
@@ -58,7 +66,7 @@ Discovery needs a chat model to propose factors and an annotation model to assig
 For a first attempt, hosted Jev avoids local model deployment. Follow [hosted model setup](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/models.md#connect-hosted-models>) to prepare `DEEPSEEK_API_KEY` and `TYPESAFE_API_KEY`, then run:
 
 ```bash
-bash examples/mb.sh --decision-model jev --run --output-dir runs/apple-mb
+python -m coatlearn mb --config config/mb.toml --decision-model jev --run --output-dir runs/apple-mb
 ```
 
 `--decision-model jev` switches annotation, review and deduplication together; the proposer stays unchanged. Only `--run` calls the models. Hosted calls send the selected text and may incur charges. To use the default Kev instead, first start a server with the [local deployment guide](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/kev.md>).
@@ -85,6 +93,7 @@ For your own CSV or pandas DataFrame, call `run_mb`, `run_pag` or `run_adj` dire
 
 ## Read next
 
+- [Install and prepare](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/installation.md>): install from PyPI, obtain examples and choose a task configuration.
 - [Understand COAT](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/concepts.md>): why discover variables, and what the three methods answer.
 - [Your first analysis](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/quickstart.md>): install, run MB and inspect one result.
 - [Annotate factors](<https://github.com/causalcoat/COAT-Learn/blob/main/docs/annotation.md>): apply existing definitions to your material.
