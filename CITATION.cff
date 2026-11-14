@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+title: "coatlearn: Causal discovery over unstructured data with large language models"
+type: software
+authors:
+  - family-names: Liu
+    given-names: Chenxi
+  - family-names: Chen
+    given-names: Yongqiang
+  - family-names: Liu
+    given-names: Tongliang
+  - family-names: Gong
+    given-names: Mingming
+  - family-names: Cheng
+    given-names: James
+  - family-names: Han
+    given-names: Bo
+  - family-names: Zhang
+    given-names: Kun
+url: "https://causalcoat.github.io/"
+repository-code: "https://github.com/causalcoat/COAT-Learn"
+license: Apache-2.0
+keywords:
+  - causal discovery
+  - causal representation learning
+  - large language models
+  - markov blanket
+  - partial ancestral graph
+  - adjustment sets
+preferred-citation:
+  type: article
+  title: "Discovering and Reasoning of Causality in the Hidden World with Large Language Models"
+  authors:
+    - family-names: Liu
+      given-names: Chenxi
+    - family-names: Chen
+      given-names: Yongqiang
+    - family-names: Liu
+      given-names: Tongliang
+    - family-names: Gong
+      given-names: Mingming
+    - family-names: Cheng
+      given-names: James
+    - family-names: Han
+      given-names: Bo
+    - family-names: Zhang
+      given-names: Kun
+  journal: "Journal of Machine Learning Research"
+  year: 2026
+  volume: 27
+  issue: 229
+  start: 1
+  end: 95
+  url: "http://jmlr.org/papers/v27/25-2137.html"

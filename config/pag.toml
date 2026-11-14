@@ -1,0 +1,82 @@
+# Build a PAG from Taste, Score and Review.
+# Paths are relative to this file. Credentials are environment variable names only.
+schema_version = 1
+
+[task]
+method = "pag"
+data = "../data/apple_reviews_PAG_graph1.csv"
+known_variables = ["Taste", "Score"]
+text_col = "Review"
+
+[models]
+
+[models.main]
+backend = "openai"
+model = "deepseek-flash"
+base_url = "https://api.deepseek.com"
+api_key_env = "DEEPSEEK_API_KEY"
+reasoning_effort = "low"
+omit_temperature = true
+timeout = 60
+max_retries = 1
+max_concurrency = 3
+
+[models.kev9b]
+backend = "kev"
+model = "kev-9b-v1.0"
+base_url = "http://127.0.0.1:8019"
+timeout = 300.0
+max_retries = 0
+max_concurrency = 3
+
+[models.kev4b]
+backend = "kev"
+model = "kev-4b-v1.0"
+base_url = "http://127.0.0.1:8014"
+timeout = 300.0
+max_retries = 0
+max_concurrency = 3
+
+[models.jev]
+backend = "jev"
+model = "jev-1.14.0"
+base_url = "https://api.typesafe.ai"
+api_key_env = "TYPESAFE_API_KEY"
+timeout = 60
+max_retries = 0
+max_concurrency = 16
+
+[roles]
+main = "main"
+annotation = "kev9b"
+judge = "kev9b"
+dedup = "kev9b"
+
+[role_options]
+
+[role_options.judge]
+max_concurrency = 3
+
+[role_options.dedup]
+max_concurrency = 3
+task_context = "从苹果评论文本识别候选因子；比较完整定义对应的核心属性，而非预测评分或判断因果关系。"
+
+[analysis]
+rounds = 2
+concurrency = 16
+alpha = 0.001
+test_method = "fisherz"
+seed = 42
+save_conversations = false
+
+[analysis.options]
+fci_depth = 2
+save_factor_audit = true
+vif_threshold = 3.0
+factor_template = "general"
+factor_template_repair = true
+
+[analysis.options.annotation_batching]
+enabled = true
+max_factors_per_request = 8
+shuffle_questions = false

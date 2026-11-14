@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coatlearn"
+dynamic = ["version"]
+description = "Causal discovery over unstructured data with large language models (COAT)"
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = [
+    "causal discovery",
+    "causal representation learning",
+    "large language models",
+    "markov blanket",
+    "partial ancestral graph",
+    "adjustment sets",
+]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Operating System :: OS Independent",
+]
+license = {file = "LICENSE"}
+dependencies = [
+    # Direct imports of the coatlearn core modules (versions are floors, not
+    # pins; the experiments were run in the versions recorded by
+    # provenance.library_versions):
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "scikit-learn>=1.3",
+    "statsmodels>=0.14",
+    "tqdm>=4.60",
+    "Unidecode>=1.2",
+    "nltk>=3.8",            # WordNet overlap checks (corpus must exist; see README)
+    "openpyxl>=3.1",        # .xlsx data loading
+    "pydot>=1.4",           # imported by causallearn GraphUtils.to_pydot (graph export)
+    "httpx>=0.24",          # transport used by the Jev annotation backend
+    "causal-learn>=0.1.4.5",  # public custom-CI API used by the required-edge prior
+    "openai>=1.40",         # used by coatlearn.models (OpenAIChatModel)
+    "pydantic>=2.8,<3",     # strict, credential-free task schema
+    "python-dotenv>=1.0,<2", # callers explicitly load local credentials in Python
+]
+
+[project.optional-dependencies]
+lingam = ["lingam>=1.9"]    # only needed for the use_lingam=True paths
+# Install only in the dedicated local-GPU Python environment, not the CPU client.
+kev = ["torch>=2.6,<2.9", "transformers>=5.17,<6", "peft>=0.21", "accelerate>=1.15"]
+
+[project.urls]
+Paper = "https://www.jmlr.org/papers/v27/25-2137.html"
+Website = "https://causalcoat.github.io/"
+Documentation = "https://causalcoat.github.io/docs/"
+Source = "https://github.com/causalcoat/COAT-Learn"
+Issues = "https://github.com/causalcoat/COAT-Learn/issues"
+
+[project.scripts]
+coatlearn = "coatlearn.cli:main"
+
+[tool.setuptools]
+include-package-data = false
+license-files = ["LICENSE", "NOTICE"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["coatlearn*"]
+
+[tool.setuptools_scm]
+root = "."
+search_parent_directories = false
+version_scheme = "no-guess-dev"
+local_scheme = "node-and-date"
+

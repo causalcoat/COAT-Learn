@@ -1,0 +1,17 @@
+- [Overview](/)
+- Learn
+  - [Understand COAT](/concepts.md)
+  - [Your first analysis](/quickstart.md)
+- Complete a task
+  - [Prepare data](/data.md)
+  - [Connect models](/models.md)
+  - [Deploy local Kev](/kev.md)
+  - [Annotate factors](/annotation.md)
+  - [Analyze tables and graphs](/causality.md)
+  - [Use an agent](/agents.md)
+- Reference
+  - [Discovery interfaces](/discovery.md)
+  - [Configuration](/configuration.md)
+  - [Results](/results.md)
+  - [Package structure](/architecture.md)
+  - [Local dependencies](/troubleshooting.md)

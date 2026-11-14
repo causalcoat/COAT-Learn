@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+
+# Experiment outputs written by the core modules / examples
+exp_log_folders/
+example_runs/
+runs/
+
+# Local developer instructions and private settings
+AGENTS.md
+config/*.local.toml
+.env
+.env.*
+!.env.example
+
+# Only the two documented CSV files are public example inputs.
+data/*.xlsx
+data/*.xls
+data/*.zip
+
+# Editor / OS noise
+.DS_Store
+.ipynb_checkpoints/

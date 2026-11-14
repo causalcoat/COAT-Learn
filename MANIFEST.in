@@ -1,0 +1,16 @@
+include README.md README.zh-cn.md CONTRIBUTING.md CITATION.cff SOURCE_MAP.md LICENSE NOTICE .env.example
+include data/LICENSE
+recursive-include coatlearn *.py
+recursive-include config *.toml *.md
+recursive-include data *.csv *.md
+recursive-include examples *.sh
+recursive-include docs *.md *.html .nojekyll
+recursive-include skills *.md
+exclude AGENTS.md
+prune tests
+prune build
+prune dist
+prune example_runs
+prune runs
+global-exclude *.py[cod] __pycache__ .env AGENTS.md
+exclude .env.local .env.production .env.development .env.test

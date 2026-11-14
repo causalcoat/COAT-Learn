@@ -1,0 +1,109 @@
+# Estimate email effects using the saved synthetic Hillstrom settings.
+# Paths are relative to this file. Credentials are environment variable names only.
+schema_version = 1
+
+[task]
+method = "adj"
+data = "../data/hillstrom_email_visit_post.csv"
+treatment = "email_type"
+outcome = "visit"
+text_col = "post"
+treatment_mapping = "yes_missing"
+outcome_mapping = "yes_no"
+
+[models]
+
+[models.main]
+backend = "openai"
+model = "deepseek-flash"
+base_url = "https://api.deepseek.com"
+api_key_env = "DEEPSEEK_API_KEY"
+reasoning_effort = "low"
+omit_temperature = true
+timeout = 60
+max_retries = 1
+max_concurrency = 3
+
+[models.kev9b]
+backend = "kev"
+model = "kev-9b-v1.0"
+base_url = "http://127.0.0.1:8019"
+timeout = 300.0
+max_retries = 0
+max_concurrency = 3
+
+[models.kev4b]
+backend = "kev"
+model = "kev-4b-v1.0"
+base_url = "http://127.0.0.1:8014"
+timeout = 300.0
+max_retries = 0
+max_concurrency = 3
+
+[models.jev]
+backend = "jev"
+model = "jev-1.14.0"
+base_url = "https://api.typesafe.ai"
+api_key_env = "TYPESAFE_API_KEY"
+timeout = 60
+max_retries = 0
+max_concurrency = 16
+
+[roles]
+main = "main"
+annotation = "kev9b"
+judge = "kev9b"
+dedup = "kev9b"
+
+[role_options]
+
+[role_options.judge]
+max_concurrency = 3
+
+[role_options.dedup]
+max_concurrency = 3
+task_context = "从顾客社交媒体帖子识别候选因子；任务为邮件发送对网站访问的影响。比较完整定义对应的核心属性，而非预测结果或判断因果关系。"
+
+[analysis]
+rounds = 2
+concurrency = 16
+alpha = 0.001
+test_method = "mv_fisherz"
+seed = 42
+save_conversations = false
+
+[analysis.options]
+fci_depth = 2
+save_factor_audit = true
+vif_threshold = 3.0
+legacy_adjustment_estimates = false
+assume_treatment_causes_outcome = true
+prompt_sample_size = 5
+sample_minimum = 0.85
+cell_coverage_min = 0.995
+adjustment_selection = "size_then_propensity_range"
+sparse_cell_warning_below = 20
+factor_template = "general"
+factor_template_repair = true
+assume_factors_precede_treatment = true
+amenability_exempt = true
+amenability_exempt_reason = "合成混杂数据：T 由 persona propensity 生成（Hillstrom P(T=1|newbie=No)=0.34, newbie=Yes)=0.70；Retail Hero 以 age 为强混杂），非随机化。T→Y 由任务定义给定、F→T 方向由 DGP 给定；amenability 无法由数据认证，故显式豁免并记录为 researcher prior。"
+break_cycles = true
+
+[analysis.options.annotation_batching]
+enabled = true
+max_factors_per_request = 8
+shuffle_questions = false
+
+[analysis.options.support_gate]
+enabled = true
+min_mention_rate_per_arm = 0.05
+min_count_per_arm = 50
+
+[analysis.options.factor_prediction_gate]
+enabled = true
+accuracy_threshold = 0.9
+
+[analysis.options.observed_factor_definitions]
+email_type = "email_type\n- Type: choice\n- Values: sent=1, not_sent=0\n- Mentioned when: values are explicitly provided by the existing dataset\n- sent: the customer was sent the marketing email under study\n- not_sent: the customer was not sent the marketing email under study"
+visit = "visit\n- Type: choice\n- Values: visited=1, not_visited=0\n- Mentioned when: values are explicitly provided by the existing dataset\n- visited: the customer visited the website during the outcome observation period after the marketing email sending time\n- not_visited: the customer did not visit the website during that outcome observation period"

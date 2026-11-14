@@ -1,0 +1,20 @@
+COAT-Learn (coatlearn)
+Copyright 2026 COAT-Learn contributors
+
+COAT authors: Chenxi Liu, Yongqiang Chen, Tongliang Liu, Mingming Gong,
+James Cheng, Bo Han and Kun Zhang.
+
+This software implements the authors' COAT research framework. The
+publication organizes the maintained research implementation into functional
+modules and renames the Python package and command to coatlearn. Source
+provenance and the scope of these changes are recorded in SOURCE_MAP.md.
+
+Software: Apache License, Version 2.0; see LICENSE.
+The two example CSV files: Creative Commons Attribution 4.0 International;
+see data/LICENSE and data/README.md. Third-party software retains its own
+license; dependencies are not relicensed by this notice.
+
+Research article:
+Discovering and Reasoning of Causality in the Hidden World with Large
+Language Models. Journal of Machine Learning Research 27(229):1–95, 2026.
+https://www.jmlr.org/papers/v27/25-2137.html

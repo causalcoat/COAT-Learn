@@ -1,0 +1,22 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+SPDX-License-Identifier: CC-BY-4.0
+
+The COAT authors license these two files under CC BY 4.0:
+- apple_reviews_PAG_graph1.csv
+- hillstrom_email_visit_post.csv
+
+The binding license terms, including the disclaimer of warranties, are at:
+https://creativecommons.org/licenses/by/4.0/legalcode
+Plain-text legal terms:
+https://creativecommons.org/licenses/by/4.0/legalcode.txt
+License summary:
+https://creativecommons.org/licenses/by/4.0/
+
+You may share and adapt the data, including commercially, subject to the
+license terms. Retain the attribution and license information, link to the
+source where reasonably practicable, and indicate modifications. Creator
+names, source details and the suggested attribution are in README.md in
+this directory. The data is supplied as-is, without warranties.
+
+This license applies to the two CSV files, not to the software. The software
+is licensed separately under Apache-2.0 in ../LICENSE.
