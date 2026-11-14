@@ -1,10 +1,13 @@
-include README.md README.zh-cn.md CONTRIBUTING.md CITATION.cff SOURCE_MAP.md LICENSE NOTICE .env.example
+include README.md README.zh-cn.md README-PyPI.md CONTRIBUTING.md CITATION.cff SOURCE_MAP.md LICENSE NOTICE .env.example
+recursive-include tools *.py
+recursive-include maintainer *.md
 include data/LICENSE
 recursive-include coatlearn *.py
 recursive-include config *.toml *.md
 recursive-include data *.csv *.md
 recursive-include examples *.sh
 recursive-include docs *.md *.html .nojekyll
+recursive-include docs/assets *.js *.css *.json LICENSE-*
 recursive-include skills *.md
 exclude AGENTS.md
 prune tests

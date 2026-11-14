@@ -12,7 +12,8 @@ provenance and the scope of these changes are recorded in SOURCE_MAP.md.
 Software: Apache License, Version 2.0; see LICENSE.
 The two example CSV files: Creative Commons Attribution 4.0 International;
 see data/LICENSE and data/README.md. Third-party software retains its own
-license; dependencies are not relicensed by this notice.
+license; dependencies are not relicensed by this notice. Pinned documentation
+assets under docs/assets/vendor retain their accompanying MIT licenses.
 
 Research article:
 Discovering and Reasoning of Causality in the Hidden World with Large

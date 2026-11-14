@@ -1,12 +1,21 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools-scm>=8"]
+requires = ["setuptools>=77.0.3", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "coatlearn"
 dynamic = ["version"]
 description = "Causal discovery over unstructured data with large language models (COAT)"
-readme = "README.md"
+readme = "README-PyPI.md"
+authors = [
+    {name = "Chenxi Liu"},
+    {name = "Yongqiang Chen"},
+    {name = "Tongliang Liu"},
+    {name = "Mingming Gong"},
+    {name = "James Cheng"},
+    {name = "Bo Han"},
+    {name = "Kun Zhang"},
+]
 requires-python = ">=3.11"
 keywords = [
     "causal discovery",
@@ -18,14 +27,15 @@ keywords = [
 ]
 classifiers = [
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Operating System :: OS Independent",
 ]
-license = {file = "LICENSE"}
+# The source distribution also contains CC BY example data and MIT docs assets.
+license = "Apache-2.0 AND CC-BY-4.0 AND MIT"
+license-files = ["LICENSE", "NOTICE", "data/LICENSE", "docs/assets/vendor/LICENSE-*"]
 dependencies = [
     # Direct imports of the coatlearn core modules (versions are floors, not
     # pins; the experiments were run in the versions recorded by
@@ -64,7 +74,6 @@ coatlearn = "coatlearn.cli:main"
 
 [tool.setuptools]
 include-package-data = false
-license-files = ["LICENSE", "NOTICE"]
 
 [tool.setuptools.packages.find]
 where = ["."]

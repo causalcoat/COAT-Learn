@@ -37,7 +37,7 @@ python3 -m pip install -e .
 bash examples/mb.sh
 ```
 
-The second command reads local data and configuration only. It displays the method, row count, selected columns and model connections. It neither reads credentials nor calls a model.
+The final command reads local data and configuration only. It displays the method, row count, selected columns and model connections. It neither reads credentials nor calls a model.
 
 Example scripts load settings from TOML files. TOML is a text format with sections such as `[task]`, so the data, models and statistical settings for an analysis can be kept together.
 

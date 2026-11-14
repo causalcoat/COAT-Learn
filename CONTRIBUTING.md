@@ -7,3 +7,5 @@ Discuss changes to research methods separately from interface or directory chang
 Use the Python interface from the [getting-started guide](<docs/quickstart.md>) or inspect commands with `python3 -m coatlearn --help`. Keep examples and documentation aligned with the public interfaces.
 
 Keep credentials, private text and local model artifacts out of contributions. Configuration files contain environment-variable names, not keys. Dataset contributions need an explicit origin and redistribution permission.
+
+After editing the root README, regenerate the PyPI description with `python3 tools/prepare_pypi_readme.py`. Software releases use Git tags and the manual trusted-publishing workflow; see the [maintainer publishing guide](<maintainer/publishing.md>).

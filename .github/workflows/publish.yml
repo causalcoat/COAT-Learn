@@ -1,0 +1,86 @@
+name: Build and publish Python package
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Build only, TestPyPI, or PyPI (upload requires a release tag)
+        type: choice
+        options:
+          - build-only
+          - testpypi
+          - pypi
+        default: build-only
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: python-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install build tools
+        run: python -m pip install --upgrade build twine
+      - name: Verify README and release source
+        env:
+          PUBLISH_TARGET: ${{ inputs.target }}
+        run: |
+          python tools/prepare_pypi_readme.py --check
+          if [ "$PUBLISH_TARGET" != "build-only" ]; then
+            test "$GITHUB_REF_TYPE" = tag || { echo 'Select an existing vX.Y.Z release tag.'; exit 1; }
+            git fetch origin main:refs/remotes/origin/main
+            git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+            test -z "$(git status --porcelain)"
+          fi
+      - name: Build source distribution and wheel
+        run: python -m build
+      - name: Check metadata and publication version
+        env:
+          PUBLISH_TARGET: ${{ inputs.target }}
+        run: |
+          python -m twine check --strict dist/*
+          python tools/check_distribution.py dist --target "$PUBLISH_TARGET"
+      - name: Install and inspect public entry points
+        run: |
+          python -m pip install dist/*.whl
+          python -c "from coatlearn import ModelConfig, RunConfig, run_mb, run_pag, run_adj"
+          coatlearn --help
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-distributions
+          path: dist/*
+          if-no-files-found: error
+
+  publish:
+    if: inputs.target != 'build-only'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.target }}
+      url: ${{ inputs.target == 'pypi' && 'https://pypi.org/p/coatlearn' || 'https://test.pypi.org/p/coatlearn' }}
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-distributions
+          path: dist/
+      - name: Publish to TestPyPI with a short-lived identity
+        if: inputs.target == 'testpypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+      - name: Publish to PyPI with a short-lived identity
+        if: inputs.target == 'pypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
