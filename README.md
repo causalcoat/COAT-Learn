@@ -8,6 +8,14 @@ For example, you have customer ratings and reviews, but do not know which produc
 
 The paper considers text, images and material that requires external measurement tools. This package's ready-to-use discovery interfaces take a text column; the examples below use reviews and posts. The paper's image and external-tool studies are not direct image or database input interfaces in this package.
 
+## See the discovery loop
+
+[![Teaching example: similar reviews have different ratings; a bruising clue becomes a new measurement.](https://causalcoat.github.io/static/coat-journal/media/coat-loop-en.gif)](https://causalcoat.github.io/#intro-video)
+
+**[Watch the 60-second introduction](https://causalcoat.github.io/#intro-video)** · [Static preview](https://causalcoat.github.io/static/coat-journal/media/loop-poster-en.webp)
+
+Preset teaching example: statistical feedback motivates another measurement; the difference alone does not prove causality.
+
 ## From source material to variables
 
 A **factor** is an attribute with a clear meaning and measurement rule. For example, define the sweetness described in a review as “not sweet,” “mildly sweet” or “very sweet,” encoded as 0, 1 and 2. **Factor annotation** applies that same rule to each observation to produce a numeric column. A name alone cannot tell a statistical method whether the attribute provides additional information.

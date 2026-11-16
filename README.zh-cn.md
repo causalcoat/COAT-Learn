@@ -8,6 +8,14 @@ coatlearn 是 COAT（Causal Representation Assistant，因果表征助手）研�
 
 论文的非结构化数据包括文本、图像，以及需要借助工具测量的资料。本包的现成发现接口读取文本列；以下示例使用评论和帖子。论文中的图像与外部工具案例，不是本包直接读取图片或数据库的接口。
 
+## 看看变量发现如何循环
+
+[![教学示意：相似评论出现不同评分，磕伤线索成为新的测量变量。](https://causalcoat.github.io/static/coat-journal/media/coat-loop-zh.gif)](https://causalcoat.github.io/index-zh.html#intro-video)
+
+**[观看一分钟中文介绍](https://causalcoat.github.io/index-zh.html#intro-video)** · [静态预览](https://causalcoat.github.io/static/coat-journal/media/loop-poster-zh.webp)
+
+预设教学示意：统计反馈提示补充测量；评分差异本身不证明因果。
+
 ## 从资料到分析变量
 
 **因子**是有明确含义和测量规则的属性。比如，把评论描述的甜度定义为“不甜、微甜、很甜”，并分别编码为 0、1、2。**因子标注**就是按同一规则给每条观测赋值，形成一列数值。只有名称而没有逐条取值，统计方法就无法判断这个属性是否提供了额外信息。
