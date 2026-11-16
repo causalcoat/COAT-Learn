@@ -8,13 +8,11 @@ coatlearn 是 COAT（Causal Representation Assistant，因果表征助手）研�
 
 论文的非结构化数据包括文本、图像，以及需要借助工具测量的资料。本包的现成发现接口读取文本列；以下示例使用评论和帖子。论文中的图像与外部工具案例，不是本包直接读取图片或数据库的接口。
 
-## 看看变量发现如何循环
+## 一分钟了解 COAT
 
-[![教学示意：相似评论出现不同评分，磕伤线索成为新的测量变量。](https://causalcoat.github.io/static/coat-journal/media/coat-loop-zh.gif)](https://causalcoat.github.io/index-zh.html#intro-video)
+[![播放一分钟 COAT 介绍：从评论到变量，再到统计反馈。](https://causalcoat.github.io/static/coat-journal/media/coat-readme-zh.webp)](https://causalcoat.github.io/index-zh.html#intro-video)
 
-**[观看一分钟中文介绍](https://causalcoat.github.io/index-zh.html#intro-video)** · [静态预览](https://causalcoat.github.io/static/coat-journal/media/loop-poster-zh.webp)
-
-预设教学示意：统计反馈提示补充测量；评分差异本身不证明因果。
+**[观看中文版](https://causalcoat.github.io/index-zh.html#intro-video)** · [Watch in English](https://causalcoat.github.io/#intro-video)
 
 ## 从资料到分析变量
 
