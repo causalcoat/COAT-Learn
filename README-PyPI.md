@@ -8,6 +8,12 @@ For example, you have customer ratings and reviews, but do not know which produc
 
 The paper considers text, images and material that requires external measurement tools. This package's ready-to-use discovery interfaces take a text column; the examples below use reviews and posts. The paper's image and external-tool studies are not direct image or database input interfaces in this package.
 
+## COAT in one minute
+
+[![Play the 60-second introduction to COAT: from reviews to variables and statistical feedback.](https://causalcoat.github.io/static/coat-journal/media/coat-readme-en.webp)](https://causalcoat.github.io/#intro-video)
+
+**[Watch in English](https://causalcoat.github.io/#intro-video)** · [中文配音](https://causalcoat.github.io/index-zh.html#intro-video)
+
 ## From source material to variables
 
 A **factor** is an attribute with a clear meaning and measurement rule. For example, define the sweetness described in a review as “not sweet,” “mildly sweet” or “very sweet,” encoded as 0, 1 and 2. **Factor annotation** applies that same rule to each observation to produce a numeric column. A name alone cannot tell a statistical method whether the attribute provides additional information.
@@ -16,7 +22,7 @@ If you know which attributes to measure, [annotate your own factors](<https://gi
 
 ## From variables to a research question
 
-The three methods address progressively deeper analysis goals. You do not need to understand every algorithm before starting.
+The three methods address different analysis goals.
 
 | What you want to understand | Method and result | What the result is useful for |
 | --- | --- | --- |

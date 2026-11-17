@@ -23,7 +23,7 @@ from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
-__all__ = ["ConfigError", "TaskPlan", "load_task"]
+__all__ = ["ConfigError", "TaskPlan", "load_task", "validate_document"]
 
 
 class ConfigError(ValueError):
@@ -81,6 +81,7 @@ class _OpenAI(_Transport):
     omit_temperature: bool = Field(default=False, exclude=True)
     max_tokens: PositiveInt | None = None
     reasoning_effort: Nonempty | None = None
+    thinking: Literal["enabled", "disabled"] | None = None
 
     @model_validator(mode="after")
     def sampling_policy(self):
@@ -518,6 +519,19 @@ def _legacy(document, source, overrides):
     if analysis.output_dir is not None:
         analysis.output_dir = str(_path(analysis.output_dir, _REPO_ROOT or source.parent))
     return _finish(source, task, models, roles, effective, analysis, options, warnings)
+
+
+def validate_document(document: Mapping[str, Any], source: str | Path) -> TaskPlan:
+    """Validate an in-memory TOML v1 document with config-relative paths."""
+    if not isinstance(document, Mapping):
+        raise ConfigError("Configuration must contain an object")
+    try:
+        _check_payload(document)
+        return _new(dict(document), Path(source).resolve(), {})
+    except ConfigError:
+        raise
+    except (ValueError, TypeError, AttributeError, KeyError):
+        raise ConfigError("Invalid configuration structure or fields") from None
 
 
 def load_task(path: str | Path, *, task_overrides: Mapping[str, Any] | None = None,

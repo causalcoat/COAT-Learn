@@ -311,6 +311,7 @@ def _resolve_model(spec: Any, role: str) -> Tuple[Any, Dict[str, Any]]:
             "temperature": _json_safe(getattr(config, "temperature", None)),
             "max_tokens": _json_safe(getattr(config, "max_tokens", None)),
             "reasoning_effort": _json_safe(getattr(config, "reasoning_effort", None)),
+            "thinking": _json_safe(getattr(config, "thinking", None)),
             "timeout": _json_safe(getattr(config, "timeout", None)),
             "max_retries": _json_safe(getattr(config, "max_retries", None)),
             "max_concurrency": _json_safe(getattr(config, "max_concurrency", None)),

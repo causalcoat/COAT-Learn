@@ -22,7 +22,7 @@ If you know which attributes to measure, [annotate your own factors](<docs/annot
 
 ## From variables to a research question
 
-The three methods address progressively deeper analysis goals. You do not need to understand every algorithm before starting.
+The three methods address different analysis goals.
 
 | What you want to understand | Method and result | What the result is useful for |
 | --- | --- | --- |

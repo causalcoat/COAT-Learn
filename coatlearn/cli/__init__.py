@@ -9,7 +9,11 @@ import sys
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog="coatlearn", description="Discover and measure factors in text.")
+    actual = list(sys.argv[1:] if argv is None else argv)
+    if actual and actual[0] in {"setup", "run", "catalog"}:
+        from .onboarding import main as onboarding_main
+        return onboarding_main(actual)
+    parser = argparse.ArgumentParser(prog="coatlearn", description="Discover and measure factors in text.", epilog="Use coatlearn setup for model connections, coatlearn run for guided analysis, or coatlearn catalog for shared options.")
     commands = parser.add_subparsers(dest="method", required=True)
     for method in ("mb", "pag", "adj"):
         command = commands.add_parser(method, help={"mb": "Find factors related to a target",

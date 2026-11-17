@@ -158,7 +158,7 @@ def execute_task(checked: CheckedTask, *, output_dir: str | Path | None = None,
         raise TaskError("REFUSING execution: CONFIG NOT CONFIRMED; replace placeholder models/endpoints")
     config = plan.run_config()
     output = Path(output_dir or config.output_dir or
-                  (plan.source.parent / "runs" / uuid4().hex)).resolve()
+                  (Path.cwd() / "runs" / (plan.task.method + "-" + uuid4().hex))).resolve()
     try:
         output.mkdir(parents=True, exist_ok=False)
     except FileExistsError:

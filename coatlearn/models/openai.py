@@ -138,6 +138,7 @@ class ModelConfig:
     max_concurrency: int = 16
     requests_per_minute: Optional[float] = None
     reasoning_effort: Optional[str] = None
+    thinking: Optional[str] = None
 
     def __post_init__(self) -> None:
         """构造即校验；输出上限和 reasoning 参数为 None 时不发送该字段。"""
@@ -151,6 +152,8 @@ class ModelConfig:
             isinstance(self.reasoning_effort, str) and self.reasoning_effort.strip()
         ):
             raise ValueError("ModelConfig.reasoning_effort 必须为非空字符串或 None")
+        if self.thinking is not None and self.thinking not in ("enabled", "disabled"):
+            raise ValueError("ModelConfig.thinking 必须为 enabled、disabled 或 None")
         if self.temperature is not None and not _is_finite_number(self.temperature):
             raise ValueError("ModelConfig.temperature 必须为有限数值或 None")
         if self.max_tokens is not None and not (
@@ -183,6 +186,7 @@ class ModelConfig:
             "max_concurrency": self.max_concurrency,
             "requests_per_minute": self.requests_per_minute,
             "reasoning_effort": self.reasoning_effort,
+            "thinking": self.thinking,
         }
 
 
@@ -288,6 +292,10 @@ class OpenAIChatModel:
             if forbidden in kwargs:
                 raise ValueError(f"chat 的 kwargs 不允许覆盖 {forbidden!r}，请修改 ModelConfig")
         params.update(kwargs)
+        if self.config.thinking is not None:
+            extra_body = dict(params.get("extra_body") or {})
+            extra_body["thinking"] = {"type": self.config.thinking}
+            params["extra_body"] = extra_body
 
         client = self._ensure_client()
         with self._inflight:

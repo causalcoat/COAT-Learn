@@ -23,6 +23,8 @@ def resolve_annotator(model):
     """Resolve a preset or model configuration after local data validation."""
     from coatlearn.models.presets import ModelPreset
     from coatlearn.models.jev import JevConfig
+    from coatlearn.models.openai import ModelConfig, create_model
+    from .llm import LLMAnnotator
     from coatlearn.models.systemone import SystemOneClient
     from .measurement import JevAnnotator, decision_annotator
 
@@ -30,6 +32,8 @@ def resolve_annotator(model):
         model = model._resolve("annotation")
     if isinstance(model, JevConfig):
         return decision_annotator(model)
+    if isinstance(model, ModelConfig):
+        return LLMAnnotator(create_model(model))
     if callable(getattr(model, "annotate_record", None)):
         return model
     if isinstance(model, SystemOneClient):
@@ -37,7 +41,9 @@ def resolve_annotator(model):
         annotator._system_one = model._system_one
         annotator.stats = model.stats
         return annotator
-    raise TypeError("model must be a Jev/Kev configuration, preset, System One client or factor annotator")
+    if callable(getattr(model, "chat", None)):
+        return LLMAnnotator(model)
+    raise TypeError("model must be an LLM or Jev/Kev configuration, preset, client or factor annotator")
 
 
 def annotate(texts, definitions: Mapping[str, str | MeasurementSpec], *, model,
